@@ -3,7 +3,12 @@ const cors = require("cors")
 const app = express();
 const Queue = require("bull")
 
-const postQueue = new Queue("post-queue");
+const postQueue = new Queue("post-queue", { 
+    redis: { 
+      port: 6379,
+      host: "queue-srv" 
+    }
+});
 
 const posts = {};
 

@@ -10,13 +10,13 @@ function App() {
 
   const save = async (event) => {
     event.preventDefault();
-    const response = await axios.post("http://localhost:4000/posts", { title })
+    const response = await axios.post("http://post.com/posts", { title })
     setPosts([...posts, response.data])
     setTitle("")
   }
 
   const getPosts = async () => {
-    const response = await axios.get("http://localhost:4002/posts")
+    const response = await axios.get("http://post.com/posts")
     const posts = (Object.keys(response.data).map(key => response.data[key]))
     setPosts(posts);
   }

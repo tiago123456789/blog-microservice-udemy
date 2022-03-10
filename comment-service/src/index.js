@@ -3,7 +3,12 @@ const cors = require("cors")
 const app = express();
 const Queue = require("bull")
 const postRepository = require("./repositories/postCommentRepository")
-const postQueue = new Queue("post-queue");
+const postQueue = new Queue("post-queue", { 
+    redis: { 
+      port: 6379,
+      host: "queue-srv" 
+    }
+});
 
 app.use(cors())
 
@@ -21,7 +26,7 @@ app.post("/posts/:id/comments", async (request, response) => {
     const body = request.body;
     const post = postRepository.create(request.params.id, body.text);
     await postQueue.add({ ...post, type: "CommentCreated" })
-    return response.json(post);
+    return response.sendStatus(201);
 })
 
 app.listen(4001, () => console.log(`Server is running at: http://localhot:4001`))

@@ -6,14 +6,14 @@ function ListPost(props) {
   const [comment, setComment] = useState("");
 
   const getAllCommentsAllPosts = async () => {
-    const response = await axios.get("http://localhost:4001/posts/comments")
+    const response = await axios.get("http://comment.com/posts/comments")
     setComments(response.data);
   }
 
   const saveComment = async (event, postId) => {
     event.preventDefault();
     const response = await axios.post(
-      `http://localhost:4001/posts/${postId}/comments`,
+      `http://comment.com/posts/${postId}/comments`,
       { text: comment }
     )
 

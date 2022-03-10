@@ -3,7 +3,12 @@ const cors = require("cors");
 const Queue = require("bull");
 const app = express();
 const postRepository = require("./repositories/postRepository")
-const postQueue = new Queue("post-queue");
+const postQueue = new Queue("post-queue", { 
+    redis: { 
+      port: 6379,
+      host: "queue-srv" 
+    }
+});
 
 app.use(cors())
 
@@ -20,4 +25,7 @@ app.post("/posts", async (request, response) => {
     return response.json(post);
 })
 
-app.listen(4000, () => console.log(`Server is running at: http://localhot:4000`))
+app.listen(4000, () => {
+    console.log("v3")
+    console.log(`Server is running at: http://localhot:4000`)
+})

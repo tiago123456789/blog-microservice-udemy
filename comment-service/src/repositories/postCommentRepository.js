@@ -23,7 +23,7 @@ module.exports = {
         } else {
             comment.status = "approved"
         }
-
+             commentsByPosts       
         if (!commentsByPosts[postId]) {
             commentsByPosts[postId] = []
         }
